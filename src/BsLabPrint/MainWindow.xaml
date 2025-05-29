@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BsLabPrint"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="True"
+        Title="BsLabPrint" Height="450" Width="800">
     <Grid>
-        
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Main"/>
+                <MenuItem Header="_Configuration"/>
+                <MenuItem Header="_About"/>
+            </Menu>
+            <Grid x:Name="MainviewWindow">
+                
+                
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>

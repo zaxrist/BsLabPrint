@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BsLabPrint.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace BsLabPrint
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            MainView dd = new MainView();
+            MainviewWindow.Children.Add(dd);
+
         }
     }
 }

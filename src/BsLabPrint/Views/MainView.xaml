@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="BsLabPrint.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BsLabPrint.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="TEXT" Background="LightGray" Margin="0,0,10,0"/>
+                <TextBlock Text="PRINT QUANTITY" Background="LightGray" Grid.Column="1"/>
+                <TextBox x:Name="TextPRintBox" Text="LTS123456789" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0" 
+                         FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted"
+                         ContextMenu="{x:Null}" TextChanged="TextPRintBox_TextChanged"/>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="QtyBox" Text="10" VerticalContentAlignment="Center" FontSize="40" IsReadOnly="True" />
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button FontFamily="Marlett" FontSize="20" Content="5" Grid.Row="0"/>
+                        <Button FontFamily="Marlett" FontSize="20" Content="6" Grid.Row="1"/>
+                    </Grid>
+                    
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Button x:Name="PrintBtn" Content="PRINT" Grid.Column="1" Margin="0,10,0,0"/>
+            </Grid>
+
+
+                <Grid x:Name="InputBarcode" Background="White" Grid.Row="1" Margin="0,0,0,10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="BarcodeInsert" HorizontalAlignment="Right" Margin="8"/>
+                    <TextBlock x:Name="TextInput" Grid.Column="1" Text="LTS123456789" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="70" 
+                               Foreground="Black"/>
+
+                </Grid>
+
+
+            <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="1" Margin="0,0,0,10">
+                <Grid Background="Transparent">
+                    <Image x:Name="PrintPreview"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
