@@ -1,0 +1,3 @@
+[submodule "DataMatrix.NET"]
+	path = DataMatrix.NET
+	url = https://github.com/zaxrist/DataMatrix.NET.git
