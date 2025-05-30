@@ -5,9 +5,9 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BsLabPrint", "BsLabPrint\BsLabPrint.csproj", "{BF0CCD65-4E0F-4055-9606-658F65AB4C30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMatrix.net", "..\DataMatrix.NET\src\DataMatrix.net\DataMatrix.net.csproj", "{EBF1ECC0-2125-4B3B-A6CF-E0ED38E6FF27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataMatrix.net", "..\DataMatrix.NET\src\DataMatrix.net\DataMatrix.net.csproj", "{EBF1ECC0-2125-4B3B-A6CF-E0ED38E6FF27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCoder", "..\QRCoder\QRCoder\QRCoder.csproj", "{5EB63341-F4AC-4EF1-96B6-0E576A023E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QRCoder", "..\QRCoder\QRCoder\QRCoder.csproj", "{5EB63341-F4AC-4EF1-96B6-0E576A023E5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,5 +28,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E1F7758-4AAB-4FC7-9578-9643FC174276}
 	EndGlobalSection
 EndGlobal

@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Drawing.Imaging;
+using System.Windows;
 
 namespace BsLabPrint.Views
 {
@@ -47,6 +49,7 @@ namespace BsLabPrint.Views
             _typingTimer.Tag = (sender as TextBox).Text; // This should be done with EventArgs
             _typingTimer.Start();
         }
+        public ImageSource BarcodeImage { get; set; }
         private void handleTypingTimerTimeout(object sender, EventArgs e)
         {
             var timer = sender as DispatcherTimer; // WPF
@@ -61,7 +64,8 @@ namespace BsLabPrint.Views
             if(validateString != "")
             {
                 BarcodeInsert.Source = Barcode.BitmapToImageSource(validateString);
-                PrintPreview.Source= BitmapToImageSource( GridToImage());
+                //BarcodeImage= BitmapToImageSource( GridToImage(validateString));
+                BarcodeImage = Barcode.GetRender(InputBarcodeGrid, 96);
                 TextPRintBox.SelectAll();
             }
 
@@ -79,17 +83,18 @@ namespace BsLabPrint.Views
                 return "";
             }
         }
-        private Bitmap GridToImage()
-        {
-            RenderTargetBitmap rnd = new RenderTargetBitmap((int)InputBarcode.ActualWidth, (int)InputBarcode.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
-            rnd.Render(InputBarcode);
-            MemoryStream stream = new MemoryStream();
-            BitmapEncoder encoder = new BmpBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(rnd));
-            encoder.Save(stream);
-            Bitmap bitmap = new Bitmap(stream);
-            return bitmap;
-        }
+        //private Bitmap GridToImage(string text)
+        //{
+        //   // RenderTargetBitmap rtb = new RenderTargetBitmap((int)InputBarcode.ActualWidth, (int)InputBarcode.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+        //    RenderTargetBitmap rtb = new RenderTargetBitmap((int)InputBarcodeGrid.RenderSize.Width, (int)InputBarcodeGrid.RenderSize.Height, 96, 96, PixelFormats.Pbgra32);
+        //    rtb.Render(InputBarcodeGrid);
+        //    MemoryStream stream = new MemoryStream();
+        //    BitmapEncoder encoder = new BmpBitmapEncoder();
+        //    encoder.Frames.Add(BitmapFrame.Create(rtb));
+        //    encoder.Save(stream);
+        //    Bitmap bitmap = new Bitmap(stream);
+        //    return bitmap;
+        //}
 
         private BitmapImage BitmapToImageSource(Bitmap bitmap)
         {
