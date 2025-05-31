@@ -60,6 +60,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Modules\Barcode.cs" />
+    <Compile Include="PrinterSetting\BrPrintSetup.cs" />
+    <Compile Include="PrinterSetting\PrtSetting.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>PrtSetting.settings</DependentUpon>
+    </Compile>
     <Compile Include="Views\BarcodeControlView.xaml.cs">
       <DependentUpon>BarcodeControlView.xaml</DependentUpon>
     </Compile>
@@ -113,6 +119,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="PrinterSetting\PrtSetting.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>PrtSetting.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

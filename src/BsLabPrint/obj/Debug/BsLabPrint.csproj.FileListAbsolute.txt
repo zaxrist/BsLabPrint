@@ -63,3 +63,7 @@ C:\Users\int10975\source\repos\BsLabPrint\src\BsLabPrint\obj\Debug\BsLabPrint.cs
 C:\Users\int10975\source\repos\BsLabPrint\src\BsLabPrint\obj\Debug\BsLabPrint.csproj.Up2Date
 C:\Users\int10975\source\repos\BsLabPrint\src\BsLabPrint\obj\Debug\BsLabPrint.exe
 C:\Users\int10975\source\repos\BsLabPrint\src\BsLabPrint\obj\Debug\BsLabPrint.pdb
+C:\Users\zackr\Documents\Github\BsLabPrint\src\BsLabPrint\obj\Debug\Views\BarcodeControlView.g.cs
+C:\Users\zackr\Documents\Github\BsLabPrint\src\BsLabPrint\obj\Debug\Views\PrinterSettings.g.cs
+C:\Users\zackr\Documents\Github\BsLabPrint\src\BsLabPrint\obj\Debug\Views\BarcodeControlView.baml
+C:\Users\zackr\Documents\Github\BsLabPrint\src\BsLabPrint\obj\Debug\Views\PrinterSettings.baml

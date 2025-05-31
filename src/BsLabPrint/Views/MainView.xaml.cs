@@ -1,31 +1,35 @@
 ﻿using BsLabPrint.Modules;
 using System;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
-using System.IO.Packaging;
-using System.Reflection.Emit;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Drawing.Imaging;
-using System.Windows;
 
 namespace BsLabPrint.Views
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
     public partial class MainView : UserControl
     {
+        PrintDocument Printdocument { get; set; }
         public MainView()
         {
             InitializeComponent();
-
-           // BarcodeInsert.Source = Barcode.BitmapToImageSource("1234567890123");
+            Printdocument = new PrintDocument();
+            Printdocument.PrintPage += Printdocument_PrintPage;
+            // BarcodeInsert.Source = Barcode.BitmapToImageSource("1234567890123");
         }
-        
+
+        private void Printdocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Graphics gp = e.Graphics;
+            BitmapImage bb = (BitmapImage) BarcodeImage;
+            Bitmap bitmapp = BitmapImage2Bitmap(bb);
+            gp.DrawImage(BitmapImage2Bitmap(bb),new Point(0,0));
+        }
+
         private void textBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             if (e.Command == ApplicationCommands.Copy ||
@@ -49,7 +53,7 @@ namespace BsLabPrint.Views
             _typingTimer.Tag = (sender as TextBox).Text; // This should be done with EventArgs
             _typingTimer.Start();
         }
-        public ImageSource BarcodeImage { get; set; }
+        public ImageSource BarcodeImage { get; private set; }
         private void handleTypingTimerTimeout(object sender, EventArgs e)
         {
             var timer = sender as DispatcherTimer; // WPF
@@ -83,6 +87,21 @@ namespace BsLabPrint.Views
                 return "";
             }
         }
+
+        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
+        {
+            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
+
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                enc.Save(outStream);
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
+
+                return new Bitmap(bitmap);
+            }
+        }
         //private Bitmap GridToImage(string text)
         //{
         //   // RenderTargetBitmap rtb = new RenderTargetBitmap((int)InputBarcode.ActualWidth, (int)InputBarcode.ActualHeight, 96, 96, PixelFormats.Pbgra32);
@@ -96,20 +115,20 @@ namespace BsLabPrint.Views
         //    return bitmap;
         //}
 
-        private BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
+        //private BitmapImage BitmapToImageSource(Bitmap bitmap)
+        //{
+        //    using (MemoryStream memory = new MemoryStream())
+        //    {
+        //        bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+        //        memory.Position = 0;
+        //        BitmapImage bitmapimage = new BitmapImage();
+        //        bitmapimage.BeginInit();
+        //        bitmapimage.StreamSource = memory;
+        //        bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
+        //        bitmapimage.EndInit();
 
-                return bitmapimage;
-            }
-        }
+        //        return bitmapimage;
+        //    }
+        //}
     }
 }

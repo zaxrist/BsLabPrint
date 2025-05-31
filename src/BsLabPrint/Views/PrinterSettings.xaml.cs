@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using BsLabPrint.PrinterSetting;
+using System.Drawing.Printing;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BsLabPrint.Views
 {
@@ -20,9 +9,22 @@ namespace BsLabPrint.Views
     /// </summary>
     public partial class PrinterSettings : UserControl
     {
+        public System.Drawing.Printing.PrinterSettings _printersting { get; set; }
+        public BrPrintSetup brPrint { get; set; }
         public PrinterSettings()
         {
             InitializeComponent();
+            FindAllPrinter();
+        }
+
+        private void FindAllPrinter()
+        {
+            PrinterListCmb.Items.Clear();
+            foreach (var item in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                PrinterListCmb.Items.Add(item);
+            } 
+            
         }
     }
 }
