@@ -54,6 +54,7 @@ namespace BsLabPrint.Views
             _typingTimer.Start();
         }
         public ImageSource BarcodeImage { get; private set; }
+        public delegate void BarcodeImageChangedEventHandler(object sender, ImageSource imageSource);
         private void handleTypingTimerTimeout(object sender, EventArgs e)
         {
             var timer = sender as DispatcherTimer; // WPF
