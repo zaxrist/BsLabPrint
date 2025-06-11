@@ -12,7 +12,7 @@ namespace BsLabPrint.PrinterSetting {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.11.0.0")]
     internal sealed partial class PrtSetting : global::System.Configuration.ApplicationSettingsBase {
         
         private static PrtSetting defaultInstance = ((PrtSetting)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new PrtSetting())));
@@ -20,6 +20,126 @@ namespace BsLabPrint.PrinterSetting {
         public static PrtSetting Default {
             get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PrinterName {
+            get {
+                return ((string)(this["PrinterName"]));
+            }
+            set {
+                this["PrinterName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PrinterDpi {
+            get {
+                return ((int)(this["PrinterDpi"]));
+            }
+            set {
+                this["PrinterDpi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LabelWidth {
+            get {
+                return ((int)(this["LabelWidth"]));
+            }
+            set {
+                this["LabelWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LabelHeight {
+            get {
+                return ((int)(this["LabelHeight"]));
+            }
+            set {
+                this["LabelHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SPosY {
+            get {
+                return ((int)(this["SPosY"]));
+            }
+            set {
+                this["SPosY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SPosX {
+            get {
+                return ((int)(this["SPosX"]));
+            }
+            set {
+                this["SPosX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public short PrintQty {
+            get {
+                return ((short)(this["PrintQty"]));
+            }
+            set {
+                this["PrintQty"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int BarcodeWidth {
+            get {
+                return ((int)(this["BarcodeWidth"]));
+            }
+            set {
+                this["BarcodeWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int BarcodeHeight {
+            get {
+                return ((int)(this["BarcodeHeight"]));
+            }
+            set {
+                this["BarcodeHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsLandscape {
+            get {
+                return ((bool)(this["IsLandscape"]));
+            }
+            set {
+                this["IsLandscape"] = value;
             }
         }
     }

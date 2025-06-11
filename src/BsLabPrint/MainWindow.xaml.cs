@@ -11,6 +11,9 @@ namespace BsLabPrint
         {
             InitializeComponent();
             DataContext = this;
+            Mainvieww.BarcodeImageChanged = PrSettingView.BarcodeChangedEvent;
+            PrSettingView.PrinterSettingsChanged = Mainvieww.PrinterSettings_Changed;
+            PrSettingView.printpreviewClicked += Mainvieww.PrintPrevieww;
             MainviewWindow.Children.Add(Mainvieww);
             MainviewWindow.Children.Add(PrSettingView);
             PrSettingView.Visibility = Visibility.Hidden;
@@ -24,10 +27,21 @@ namespace BsLabPrint
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            PrSettingView.PrinterView.Source = Mainvieww.BarcodeImage;
             PrSettingView.Visibility = Visibility.Visible;
             Mainvieww.Visibility = Visibility.Hidden;
 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("Created by Zackris. GitHub: https://github.com/zaxrist");
+            //AboutBox1 bb = new AboutBox1();
+            //bb.ShowDialog();
         }
     }
 }

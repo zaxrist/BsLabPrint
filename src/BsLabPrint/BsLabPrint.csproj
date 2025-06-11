@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>barcode.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -41,6 +44,7 @@
     <Reference Include="System.Drawing.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Drawing.Common.9.0.5\lib\net462\System.Drawing.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,8 +63,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutBox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox1.Designer.cs">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Barcode.cs" />
-    <Compile Include="PrinterSetting\BrPrintSetup.cs" />
     <Compile Include="PrinterSetting\PrtSetting.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -114,6 +123,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="AboutBox1.resx">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -131,12 +143,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Image\barcode.ico" />
+    <Resource Include="Image\barcode.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataMatrix.NET\src\DataMatrix.net\DataMatrix.net.csproj">
       <Project>{ebf1ecc0-2125-4b3b-a6cf-e0ed38e6ff27}</Project>
       <Name>DataMatrix.net</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="barcode.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

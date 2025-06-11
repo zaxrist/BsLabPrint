@@ -26,7 +26,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="TEXT" Background="LightGray" Margin="0,0,10,0"/>
                 <TextBlock Text="PRINT QUANTITY" Background="LightGray" Grid.Column="1"/>
-                <TextBox x:Name="TextPRintBox" Text="LTS123456789" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0" 
+                <TextBox x:Name="TextPRintBox" Text="{Binding InputBarcodeString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0" 
                          FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted"
                          ContextMenu="{x:Null}" TextChanged="TextPRintBox_TextChanged"/>
                 <Grid Grid.Row="1" Grid.Column="1">
@@ -40,28 +40,29 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button FontFamily="Marlett" FontSize="20" Content="5" Grid.Row="0"/>
-                        <Button FontFamily="Marlett" FontSize="20" Content="6" Grid.Row="1"/>
+                        <Button FontFamily="Marlett" FontSize="20" Content="5" Grid.Row="0" Click="AddPrintQty"/>
+                        <Button FontFamily="Marlett" FontSize="20" Content="6" Grid.Row="1" Click="ReducePrintQty"/>
                     </Grid>
                     
                 </Grid>
             </Grid>
 
             <Grid Grid.Row="3">
-                <Button x:Name="PrintBtn" Content="PRINT" Grid.Column="1" Margin="0,10,0,0"/>
+                <Button x:Name="PrintBtn" Content="PRINT" Grid.Column="1" Margin="0,10,0,0" Click="PrintBtn_Click"/>
             </Grid>
 
             <Grid Grid.Row="0" Background="White">
                 
             </Grid>
-                <Grid x:Name="InputBarcodeGrid" Background="White" Grid.Row="1" Margin="0,0,0,10" >
+                <Grid x:Name="InputBarcodeGrid" Background="White" Grid.Row="1" Margin="0,0,0,0" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="230"/>
+                        <ColumnDefinition Width="150"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Image x:Name="BarcodeInsert" HorizontalAlignment="Right" Margin="8"/>
-                    <TextBlock x:Name="TextInput" Grid.Column="1" Text="LTS123456789" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="70" 
+                <Image Source="{Binding BarcodeLogo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="0"/>
+                    <TextBlock Grid.Column="1" Text="{Binding InputBarcodeString}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="60" 
                                Foreground="Black"/>
+                    <!--A25493026M-07-->
                 </Grid>
 
 

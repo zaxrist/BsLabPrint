@@ -53,5 +53,30 @@ namespace BsLabPrint.Modules
             rtb.Render(dv);
             return (ImageSource)rtb.GetAsFrozen();
         }
+
+        public static Bitmap ImageSourceToBitmap(ImageSource source)
+        {
+            // Check if the source is a BitmapSource (or can be converted to one)
+            if (source is BitmapSource bitmapSource)
+            {
+                // Use the StreamSource to create a Bitmap
+                using (var stream = new MemoryStream())
+                {
+                    var encoder = new PngBitmapEncoder(); // Or any other format
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                    encoder.Save(stream);
+                    stream.Position = 0;
+
+                    // Create the Bitmap from the stream
+                    return new Bitmap(stream);
+                }
+            }
+            else
+            {
+                // Handle other ImageSource types if needed.  For example, a UriImageSource
+                // can be loaded directly into a BitmapImage and then converted.
+                throw new NotSupportedException("ImageSource type not supported.");
+            }
+        }
     }
 }

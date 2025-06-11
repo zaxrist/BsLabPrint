@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\views\\mainview.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\bslabprint\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\bslabprint\\views\\mainview.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\views\\mainview.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\views\\barcodecontrolview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\views\\barcodecontrolview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\modules\\barcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\modules\\barcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\views\\printersettings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\views\\printersettings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\views\\printersettings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\views\\mainview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\views\\mainview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\bslabprint\\views\\printersettings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\views\\printersettings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|c:\\users\\int10975\\source\\repos\\bslabprint\\src\\bslabprint\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BF0CCD65-4E0F-4055-9606-658F65AB4C30}|BsLabPrint\\BsLabPrint.csproj|solutionrelative:bslabprint\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 10,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,20 +70,46 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "BsLabPrint\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\MainWindow.xaml.cs",
-              "RelativeToolTip": "BsLabPrint\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABGAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "PrinterSettings.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\PrinterSettings.xaml.cs",
+              "RelativeDocumentMoniker": "BsLabPrint\\Views\\PrinterSettings.xaml.cs",
+              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\PrinterSettings.xaml.cs",
+              "RelativeToolTip": "BsLabPrint\\Views\\PrinterSettings.xaml.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAjwM4AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T05:33:39.629Z",
+              "WhenOpened": "2025-06-11T09:05:35.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Barcode.cs",
+              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Modules\\Barcode.cs",
+              "RelativeDocumentMoniker": "BsLabPrint\\Modules\\Barcode.cs",
+              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Modules\\Barcode.cs",
+              "RelativeToolTip": "BsLabPrint\\Modules\\Barcode.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T09:00:44.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "MainView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\MainView.xaml.cs",
+              "RelativeDocumentMoniker": "BsLabPrint\\Views\\MainView.xaml.cs",
+              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\MainView.xaml.cs",
+              "RelativeToolTip": "BsLabPrint\\Views\\MainView.xaml.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAMwEwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-31T04:15:05.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "PrinterSettings.xaml",
               "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\PrinterSettings.xaml",
               "RelativeDocumentMoniker": "BsLabPrint\\Views\\PrinterSettings.xaml",
@@ -84,26 +122,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "BarcodeControlView.xaml",
-              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\BarcodeControlView.xaml",
-              "RelativeDocumentMoniker": "BsLabPrint\\Views\\BarcodeControlView.xaml",
-              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\BarcodeControlView.xaml",
-              "RelativeToolTip": "BsLabPrint\\Views\\BarcodeControlView.xaml",
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "BsLabPrint\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\MainWindow.xaml",
+              "RelativeToolTip": "BsLabPrint\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-09T05:19:18.504Z",
+              "WhenOpened": "2025-06-10T03:15:42.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainView.xaml",
+              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\MainView.xaml",
+              "RelativeDocumentMoniker": "BsLabPrint\\Views\\MainView.xaml",
+              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\MainView.xaml",
+              "RelativeToolTip": "BsLabPrint\\Views\\MainView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-11T10:39:52.537Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MainView.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\MainView.xaml.cs",
-              "RelativeDocumentMoniker": "BsLabPrint\\Views\\MainView.xaml.cs",
-              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\Views\\MainView.xaml.cs",
-              "RelativeToolTip": "BsLabPrint\\Views\\MainView.xaml.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAIwDgAAABlAAAAAAAAAA==",
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "BsLabPrint\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\int10975\\source\\repos\\BsLabPrint\\src\\BsLabPrint\\MainWindow.xaml.cs",
+              "RelativeToolTip": "BsLabPrint\\MainWindow.xaml.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAWwCUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T04:15:05.196Z",
+              "WhenOpened": "2025-06-11T10:19:55.375Z",
               "EditorCaption": ""
             }
           ]

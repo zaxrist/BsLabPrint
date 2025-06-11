@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BsLabPrint"
+        xmlns:local="clr-namespace:BsLabPrint" 
         mc:Ignorable="d" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Topmost="True"
         Title="BsLabPrint" Height="450" Width="800">
     <Grid>
@@ -11,7 +11,7 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_Main" Click="MenuItem_Click"/>
                 <MenuItem Header="_Configuration" Click="MenuItem_Click_1"/>
-                <MenuItem Header="_About"/>
+                <MenuItem Header="_About" Click="MenuItem_Click_2"/>
             </Menu>
             <Grid x:Name="MainviewWindow">
                 
