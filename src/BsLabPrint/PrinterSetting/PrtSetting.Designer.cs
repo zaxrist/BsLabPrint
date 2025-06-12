@@ -142,5 +142,89 @@ namespace BsLabPrint.PrinterSetting {
                 this["IsLandscape"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public double FontSize {
+            get {
+                return ((double)(this["FontSize"]));
+            }
+            set {
+                this["FontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
+        public int BarcodeSize {
+            get {
+                return ((int)(this["BarcodeSize"]));
+            }
+            set {
+                this["BarcodeSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int MinCharLength {
+            get {
+                return ((int)(this["MinCharLength"]));
+            }
+            set {
+                this["MinCharLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int BarcodeTextGap {
+            get {
+                return ((int)(this["BarcodeTextGap"]));
+            }
+            set {
+                this["BarcodeTextGap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseQRCode {
+            get {
+                return ((bool)(this["UseQRCode"]));
+            }
+            set {
+                this["UseQRCode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public string FontType {
+            get {
+                return ((string)(this["FontType"]));
+            }
+            set {
+                this["FontType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
+        public string FontTypeFont {
+            get {
+                return ((string)(this["FontTypeFont"]));
+            }
+            set {
+                this["FontTypeFont"] = value;
+            }
+        }
     }
 }

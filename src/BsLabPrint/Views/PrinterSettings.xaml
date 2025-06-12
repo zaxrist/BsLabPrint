@@ -15,9 +15,12 @@
 
 
         <GroupBox Header="Printer View" Margin="10">
-            <Border BorderThickness="1" BorderBrush="Black" Margin="10">
-                <Image x:Name="PrinterView" Source="{Binding BarcodeSource, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, NotifyOnSourceUpdated=True}"/>
-            </Border>
+         
+                <Border BorderThickness="1" BorderBrush="Transparent" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image x:Name="PrinterView" Source="{Binding BarcodeSource, UpdateSourceTrigger=PropertyChanged}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+    
+
         </GroupBox>
 
         <Grid Grid.Row="1">
@@ -49,27 +52,61 @@
             </GroupBox>
 
             <GroupBox Header="Label Settings" Grid.Column="1" Margin="5">
-                <Grid Margin="5" Width="300" HorizontalAlignment="Left">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel>
-                        <TextBlock Text="Start Position Y: " Margin="0,3,0,0"/>
-                        <TextBlock Text="Start Position X: " Margin="0,3,0,0"/>
-                        <Rectangle Height="10"/>
-                        <TextBlock Text="Barcode Width: " Margin="0,3,0,0"/>
-                        <TextBlock Text="Barcode Height: " Margin="0,3,0,0"/>
+                <TabControl>
+                    <TabItem Header="Label">
+                        <Grid Margin="5" Width="300" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Offset Pos Y: " Margin="0,3,0,0"/>
+                                <TextBlock Text="Offset Pos X: " Margin="0,3,0,0"/>
+                                <Rectangle Height="10"/>
+                                <TextBlock Text="Width Reduction: " Margin="0,3,0,0"/>
+                                <TextBlock Text="Hieght Reduction: " Margin="0,3,0,0"/>
 
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <TextBox x:Name="StartYlbl"/>
-                        <TextBox x:Name="StartXlbl"/>
-                        <Rectangle Height="10"/>
-                        <TextBox x:Name="BarcodeWidthBox"/>
-                        <TextBox x:Name="BarcodeHeightBox"/>
-                    </StackPanel>
-                </Grid>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBox x:Name="StartYlbl"/>
+                                <TextBox x:Name="StartXlbl"/>
+                                <Rectangle Height="10"/>
+                                <TextBox x:Name="BarcodeWidthBox"/>
+                                <TextBox x:Name="BarcodeHeightBox"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Views">
+                        <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                            <Grid Margin="5" Width="300" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="Barcode Size: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="Font Size: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="Text-Barcode Gap: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="Min Char Length: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="Type: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="Font Weight: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="Font Type: " Margin="0,3,0,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBox x:Name="BarcodeSizeBox"/>
+                                    <TextBox x:Name="FontSizeBox"/>
+                                    <TextBox x:Name="BarcodeGapBox"/>
+                                    <TextBox x:Name="MinCharLengthBox"/>
+                                    <ComboBox x:Name="CodeTypeCMB"/>
+                                    <ComboBox x:Name="FontWeightCMB"/>
+                                    <ComboBox x:Name="FontTypeCMB"/>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                        
+                    </TabItem>
+                </TabControl>
+                
             </GroupBox>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="0" Margin="5">

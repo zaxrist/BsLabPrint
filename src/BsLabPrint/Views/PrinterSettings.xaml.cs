@@ -1,7 +1,9 @@
 ﻿using BsLabPrint.PrinterSetting;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Printing;
+using System.Drawing.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -45,6 +47,20 @@ namespace BsLabPrint.Views
         {
             LandscapeCmb.Items.Add("Yes");
             LandscapeCmb.Items.Add("No");
+            CodeTypeCMB.Items.Add("Data Matrix");
+            CodeTypeCMB.Items.Add("QR Code");
+            FontWeightCMB.Items.Add("Normal");
+            FontWeightCMB.Items.Add("Bold");
+            FindFontAndInsertCMB();
+        }
+
+        private void FindFontAndInsertCMB()
+        {
+            InstalledFontCollection installedFonts = new InstalledFontCollection();
+            foreach (System.Drawing.FontFamily font in installedFonts.Families)
+            {
+                FontTypeCMB.Items.Add(font.Name);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -89,6 +105,44 @@ namespace BsLabPrint.Views
                 return false; // No
             }
         }
+        private void LoadBarcodeTypeCMB()
+        {
+            if (PrtSetting.Default.UseQRCode == true)
+            {
+                CodeTypeCMB.SelectedIndex = 1; // Yes
+            }
+            else
+            {
+                CodeTypeCMB.SelectedIndex = 0; // No
+            }
+        }
+        private bool GetBarcodeTypeset()
+        {
+            if (CodeTypeCMB.SelectedIndex == 1)
+            {
+                return true; // Yes
+            }
+            else
+            {
+                return false; // No
+            }
+        }
+        private void LoadFontType()
+        {
+            if (PrtSetting.Default.FontType == "Normal")
+            {
+                FontWeightCMB.SelectedIndex = 0; // Yes
+            }
+            else if (PrtSetting.Default.FontType == "Bold")
+            {
+                FontWeightCMB.SelectedIndex = 1; // No
+            }
+            else
+            {
+                FontWeightCMB.SelectedIndex = 0; // No
+            }
+        }
+
             private void SaveConfig()
         {
             try
@@ -102,8 +156,17 @@ namespace BsLabPrint.Views
 
                 PrtSetting.Default.BarcodeWidth = int.Parse(BarcodeWidthBox.Text);
                 PrtSetting.Default.BarcodeHeight = int.Parse(BarcodeHeightBox.Text);
+                
+                PrtSetting.Default.BarcodeSize = int.Parse(BarcodeSizeBox.Text);
+                PrtSetting.Default.BarcodeTextGap = int.Parse(BarcodeGapBox.Text);
+                PrtSetting.Default.FontSize = int.Parse(FontSizeBox.Text);
+                PrtSetting.Default.MinCharLength = int.Parse(MinCharLengthBox.Text);
+                PrtSetting.Default.FontType = FontWeightCMB.SelectedItem.ToString();
+                PrtSetting.Default.FontTypeFont = FontTypeCMB.SelectedItem.ToString();
 
                 PrtSetting.Default.IsLandscape = GetlandscapeStateCmb();
+
+                PrtSetting.Default.UseQRCode = GetBarcodeTypeset();
 
 
 
@@ -132,7 +195,15 @@ namespace BsLabPrint.Views
                 BarcodeWidthBox.Text = PrtSetting.Default.BarcodeWidth.ToString();
                 BarcodeHeightBox.Text = PrtSetting.Default.BarcodeHeight.ToString();
 
+                BarcodeSizeBox.Text = PrtSetting.Default.BarcodeSize.ToString();
+                FontSizeBox.Text = PrtSetting.Default.FontSize.ToString();
+                BarcodeGapBox.Text = PrtSetting.Default.BarcodeTextGap.ToString();
+                MinCharLengthBox.Text = PrtSetting.Default.MinCharLength.ToString();
+                FontTypeCMB.Text = PrtSetting.Default.FontTypeFont;
+
                 LoadLandscapeCMB();
+                LoadBarcodeTypeCMB();
+                LoadFontType();
 
                 ApplyConfig();
             }
@@ -144,17 +215,23 @@ namespace BsLabPrint.Views
 
         private void ApplyConfig()
         {
+            PrinterSettinggg.PrinterName = PrtSetting.Default.PrinterName;
             //sets default value
             PrinterSettinggg.Collate = false;
-            PrinterSettinggg.Copies = 1;
+           // PrinterSettinggg.Copies = 1;
             PrinterSettinggg.Duplex = Duplex.Simplex;
-            PrinterSettinggg.FromPage = 1;
+           // PrinterSettinggg.FromPage = 1;
             PrinterSettinggg.DefaultPageSettings.Color = false;
-            PrinterSettinggg.DefaultPageSettings.Landscape = true;
+           // PrinterSettinggg.DefaultPageSettings.Landscape = true;
 
 
-            PrinterSettinggg.PrinterName = PrtSetting.Default.PrinterName;
-            //PrinterSettinggg.PrinterResolutions ;
+            
+            PrinterSettinggg.DefaultPageSettings.PrinterResolution = new PrinterResolution
+            {
+                Kind = PrinterResolutionKind.Custom,
+                X = PrtSetting.Default.PrinterDpi,
+                Y = PrtSetting.Default.PrinterDpi
+            };
             PrinterSettinggg.DefaultPageSettings.PaperSize = new PaperSize("Custom", ConvertHunInchToMM(PrtSetting.Default.LabelWidth), ConvertHunInchToMM(PrtSetting.Default.LabelHeight));
             //_printersting.DefaultPageSettings.PrinterResolution
             //_printersting.PrinterName = PrtSetting.Default.SPosY;

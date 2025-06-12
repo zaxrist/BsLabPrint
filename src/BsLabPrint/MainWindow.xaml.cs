@@ -39,9 +39,15 @@ namespace BsLabPrint
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("Created by Zackris. GitHub: https://github.com/zaxrist");
+           // System.Windows.Forms.MessageBox.Show("Created by Zackris. GitHub: https://github.com/zaxrist");
             //AboutBox1 bb = new AboutBox1();
             //bb.ShowDialog();
+
+            AboutWindoww mm = new AboutWindoww();
+            mm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            mm.Topmost = true;
+            mm.Owner = this;
+            mm.ShowDialog();
         }
     }
 }

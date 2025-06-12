@@ -27,7 +27,7 @@
                 <TextBlock Text="TEXT" Background="LightGray" Margin="0,0,10,0"/>
                 <TextBlock Text="PRINT QUANTITY" Background="LightGray" Grid.Column="1"/>
                 <TextBox x:Name="TextPRintBox" Text="{Binding InputBarcodeString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0" 
-                         FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted"
+                         FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted" MouseEnter="TextPRintBox_MouseEnter"
                          ContextMenu="{x:Null}" TextChanged="TextPRintBox_TextChanged"/>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -52,18 +52,26 @@
             </Grid>
 
             <Grid Grid.Row="0" Background="White">
+
                 
             </Grid>
-                <Grid x:Name="InputBarcodeGrid" Background="White" Grid.Row="1" Margin="0,0,0,0" >
+
+
+                <Grid x:Name="InputBarcodeGrid" Background="White" Grid.Row="1" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition x:Name="BarcodeSize"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                <Image Source="{Binding BarcodeLogo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="0"/>
-                    <TextBlock Grid.Column="1" Text="{Binding InputBarcodeString}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="60" 
-                               Foreground="Black"/>
+                <Image Source="{Binding BarcodeLogo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="1"/>
+                    <TextBlock Grid.Column="1" Text="{Binding InputBarcodeString}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="60" FontWeight="Bold"
+                               Foreground="Black" x:Name="BrTextBloxk"/>
                     <!--A25493026M-07-->
                 </Grid>
+
+            <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1">
+                
+            </Border>
+      
 
 
             <!--<Border Grid.Row="0" BorderBrush="LightGray" BorderThickness="1" Margin="0,0,0,10">
@@ -72,5 +80,6 @@
                 </Grid>
             </Border>-->
         </Grid>
+        
     </Grid>
 </UserControl>

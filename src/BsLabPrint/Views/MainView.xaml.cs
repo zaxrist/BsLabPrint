@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -13,6 +15,8 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using System.Xml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BsLabPrint.Views
 {
@@ -40,15 +44,29 @@ namespace BsLabPrint.Views
         {
             try
             {
-                
 
-                Graphics gp = e.Graphics;
+                // Get the printable area
+                Rectangle printableArea = e.PageBounds; // Use the entire page or MarginBounds for margins
 
+                // Calculate the scaled dimensions
+                double imageRatio = (double)BarcodeImage.Width / BarcodeImage.Height;
+                int scaledWidth = printableArea.Width;
+                int scaledHeight = (int)(printableArea.Width / imageRatio);
+
+                // If the scaled height exceeds the printable area's height, adjust width
+                if (scaledHeight > printableArea.Height)
+                {
+                    scaledHeight = printableArea.Height;
+                    scaledWidth = (int)(printableArea.Height * imageRatio);
+                }
 
                 Bitmap bb = Barcode.ImageSourceToBitmap(BarcodeImage);
-
-                // gp.DrawImage(bb, new Point(PrtSetting.Default.SPosX, PrtSetting.Default.SPosY),float.Parse(PrtSetting.Default.LabelWidth),PrtSetting.Default.LabelHeight);
-                gp.DrawImage(bb ,PrtSetting.Default.SPosX, PrtSetting.Default.SPosY, PrtSetting.Default.BarcodeWidth, PrtSetting.Default.BarcodeHeight);
+                // Draw the scaled image
+                e.Graphics.DrawImage(bb,
+                   PrtSetting.Default.SPosX + printableArea.X + (printableArea.Width - scaledWidth) / 2, // Center horizontally
+                   PrtSetting.Default.SPosY + printableArea.Y + (printableArea.Height - scaledHeight) / 2, // Center vertically
+                    scaledWidth - PrtSetting.Default.BarcodeWidth,
+                    scaledHeight - PrtSetting.Default.BarcodeHeight);
             }
             catch (Exception ex)
             {
@@ -69,7 +87,12 @@ namespace BsLabPrint.Views
         System.Windows.Threading.DispatcherTimer _typingTimer;
         private void TextPRintBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(InputBarcodeString == "")
+            if(cancelValidate) // If the input is invalid, do not process further
+            {
+                cancelValidate = false;
+                return;
+            }
+            if (InputBarcodeString == "")
             {
                 return;
             }
@@ -112,13 +135,25 @@ namespace BsLabPrint.Views
         public string InputBarcodeString
         {
             get { return _InputBarcodeString; }
-            set { _InputBarcodeString = value; 
-                if(InputBarcodeString!="") BarcodeLogo = Barcode.BitmapToImageSource(InputBarcodeString); 
+            set { _InputBarcodeString = value;
+
+                if (InputBarcodeString != "")
+                {
+                    if (PrtSetting.Default.UseQRCode)
+                    {
+                        BarcodeLogo = Barcode.GetQRCodeToImageSource(InputBarcodeString);
+                    }
+                    else
+                    {
+                        BarcodeLogo = Barcode.BitmapToImageSource(InputBarcodeString);
+                    }
+
+                }
                 else BarcodeLogo = null;
                 OnPropertyChanged(); }
         }
 
-
+        bool cancelValidate = false;
         private void handleTypingTimerTimeout(object sender, EventArgs e)
         {
             var timer = sender as DispatcherTimer; // WPF
@@ -127,7 +162,15 @@ namespace BsLabPrint.Views
                 return;
             }
             //System.Windows.MessageBox.Show("Test");
+            
             RunBarcode();
+            if(InputBarcodeString.Length <= PrtSetting.Default.MinCharLength)
+            {
+                System.Windows.MessageBox.Show("Please enter a valid Lot No. with more than " + PrtSetting.Default.MinCharLength + " characters.");
+                BarcodeImage = null;
+                cancelValidate = true;
+                InputBarcodeString = "";
+            }
             TextPRintBox.SelectAll();
             timer.Stop();
         }
@@ -143,8 +186,8 @@ namespace BsLabPrint.Views
 
         private void RunBarcode()
         {
-            //import to grid
-            BarcodeImage = Barcode.GetRender(InputBarcodeGrid, 96); //Grid to Image
+            BarcodeImage = Barcode.GetRender(InputBarcodeGrid, PrtSetting.Default.PrinterDpi); //Grid to Image
+
         }
 
         private string verifyInput(string text)
@@ -176,12 +219,50 @@ namespace BsLabPrint.Views
 
         public void PrinterSettings_Changed(System.Drawing.Printing.PrinterSettings prtSetting)
         {
-            //System.Windows.MessageBox.Show("setting Changed");
-            Printdocument.PrinterSettings = prtSetting;
+            //Barcode View
+            try
+            {
+                BarcodeSize.Width = new GridLength(PrtSetting.Default.BarcodeSize, GridUnitType.Pixel);
+                BrTextBloxk.FontSize = PrtSetting.Default.FontSize;
+                BrTextBloxk.Margin = new Thickness(PrtSetting.Default.BarcodeTextGap, 0, 0, 0);
+                switch (PrtSetting.Default.FontType)
+                {
+                    case "Normal":
+                        BrTextBloxk.FontWeight = FontWeights.Normal;
+                        break;
+                    case "Bold":
+                        BrTextBloxk.FontWeight = FontWeights.Bold;
+                        break;
+                    default:
+                        break;
+                }
+                BrTextBloxk.FontFamily = new System.Windows.Media.FontFamily(PrtSetting.Default.FontTypeFont);
+                //System.Windows.MessageBox.Show("setting Changed");
+                Printdocument.PrinterSettings = prtSetting;
+
+                RunBarcode();
+            }
+            catch (Exception EX)
+            {
+                System.Windows.Forms.MessageBox.Show(EX.Message);
+            }
+
         }
+
+
 
         private void PrintBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if(TextPRintBox.Text == "")
+            {
+                System.Windows.MessageBox.Show("Please enter a valid Lot No.");
+                return;
+            }
+            if(BarcodeImage == null)
+            {
+                System.Windows.MessageBox.Show("Nothing to Print");
+                return;
+            }
             try
             {
                 Printdocument.PrinterSettings.Copies = PrtSetting.Default.PrintQty; // Set the number of copies to print
@@ -264,6 +345,11 @@ namespace BsLabPrint.Views
             PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
             printPrvDlg.Document = Printdocument;
             printPrvDlg.ShowDialog(); // this shows the preview and then show the Printer Dlg below
+        }
+
+        private void TextPRintBox_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            TextPRintBox.SelectAll();
         }
     }
 }

@@ -69,7 +69,11 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AboutWindoww.xaml.cs">
+      <DependentUpon>AboutWindoww.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Barcode.cs" />
+    <Compile Include="Modules\UserControlToImageConverter.cs" />
     <Compile Include="PrinterSetting\PrtSetting.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -84,6 +88,10 @@
     <Compile Include="Views\PrinterSettings.xaml.cs">
       <DependentUpon>PrinterSettings.xaml</DependentUpon>
     </Compile>
+    <Page Include="AboutWindoww.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -151,6 +159,10 @@
     <ProjectReference Include="..\..\DataMatrix.NET\src\DataMatrix.net\DataMatrix.net.csproj">
       <Project>{ebf1ecc0-2125-4b3b-a6cf-e0ed38e6ff27}</Project>
       <Name>DataMatrix.net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\QRCoder\QRCoder\QRCoder.csproj">
+      <Project>{5eb63341-f4ac-4ef1-96b6-0e576a023e5a}</Project>
+      <Name>QRCoder</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
