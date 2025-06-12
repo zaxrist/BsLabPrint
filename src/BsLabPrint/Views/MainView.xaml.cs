@@ -171,7 +171,7 @@ namespace BsLabPrint.Views
                 cancelValidate = true;
                 InputBarcodeString = "";
             }
-            TextPRintBox.SelectAll();
+  
             timer.Stop();
         }
 
@@ -347,9 +347,5 @@ namespace BsLabPrint.Views
             printPrvDlg.ShowDialog(); // this shows the preview and then show the Printer Dlg below
         }
 
-        private void TextPRintBox_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            TextPRintBox.SelectAll();
-        }
     }
 }

@@ -27,7 +27,7 @@
                 <TextBlock Text="TEXT" Background="LightGray" Margin="0,0,10,0"/>
                 <TextBlock Text="PRINT QUANTITY" Background="LightGray" Grid.Column="1"/>
                 <TextBox x:Name="TextPRintBox" Text="{Binding InputBarcodeString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0" 
-                         FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted" MouseEnter="TextPRintBox_MouseEnter"
+                         FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted"
                          ContextMenu="{x:Null}" TextChanged="TextPRintBox_TextChanged"/>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.ColumnDefinitions>
