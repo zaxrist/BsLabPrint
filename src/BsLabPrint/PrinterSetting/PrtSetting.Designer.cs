@@ -226,5 +226,17 @@ namespace BsLabPrint.PrinterSetting {
                 this["FontTypeFont"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool QRsameWithText {
+            get {
+                return ((bool)(this["QRsameWithText"]));
+            }
+            set {
+                this["QRsameWithText"] = value;
+            }
+        }
     }
 }

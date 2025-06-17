@@ -91,6 +91,7 @@
                                     <TextBlock Text="Type: " Margin="0,3,0,0"/>
                                     <TextBlock Text="Font Weight: " Margin="0,3,0,0"/>
                                     <TextBlock Text="Font Type: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="QR-Text Same: " Margin="0,3,0,0"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
                                     <TextBox x:Name="BarcodeSizeBox"/>
@@ -100,6 +101,7 @@
                                     <ComboBox x:Name="CodeTypeCMB"/>
                                     <ComboBox x:Name="FontWeightCMB"/>
                                     <ComboBox x:Name="FontTypeCMB"/>
+                                    <ComboBox x:Name="QrSameWithTextCMB"/>
                                 </StackPanel>
                             </Grid>
                         </ScrollViewer>

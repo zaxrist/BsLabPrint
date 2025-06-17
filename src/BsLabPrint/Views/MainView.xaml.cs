@@ -6,17 +6,13 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Xml;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BsLabPrint.Views
 {
@@ -33,11 +29,6 @@ namespace BsLabPrint.Views
             Printdocument = new PrintDocument();
             Printdocument.PrintPage += Printdocument_PrintPage;
             LoadPrintQty();
-        }
-
-        private void OnBarcodeImageChanged()
-        {
-            throw new NotImplementedException();
         }
 
         private void Printdocument_PrintPage(object sender, PrintPageEventArgs e)
@@ -120,14 +111,14 @@ namespace BsLabPrint.Views
         public ImageSource BarcodeImage
         {
             get { return _BarcodeImage; }
-            set { _BarcodeImage = value; OnPropertyChanged(); OnBarcodeChanged(); }
+            set { _BarcodeImage = value; OnBarcodeChanged(); OnPropertyChanged("BarcodeImage"); }
         }
 
 
         private void OnBarcodeChanged()
         {
-            if (BarcodeImage != null)
-                BarcodeImageChanged.Invoke(BarcodeImage);
+            if (BarcodeImage != null)    
+            BarcodeImageChanged.Invoke(BarcodeImage);
         }
 
         private string _InputBarcodeString;
@@ -136,22 +127,60 @@ namespace BsLabPrint.Views
         {
             get { return _InputBarcodeString; }
             set { _InputBarcodeString = value;
-
+                TheOriginalString = InputBarcodeString;
                 if (InputBarcodeString != "")
                 {
                     if (PrtSetting.Default.UseQRCode)
                     {
                         BarcodeLogo = Barcode.GetQRCodeToImageSource(InputBarcodeString);
+                        if (!PrtSetting.Default.QRsameWithText)
+                        {
+                            OutBarcodeString = InputBarcodeString;
+                        }
+                        else
+                        {
+                            OutBarcodeString = TheOriginalString;
+                        }
                     }
                     else
                     {
                         BarcodeLogo = Barcode.BitmapToImageSource(InputBarcodeString);
+                        if (!PrtSetting.Default.QRsameWithText)
+                        {
+                            OutBarcodeString = InputBarcodeString;
+                        }
+                        else
+                        {
+                            OutBarcodeString = TheOriginalString;
+                        }
+                    }
+                }
+                else
+                {
+                    BarcodeLogo = null;
+                }
+                if (InputBarcodeString.Length <= PrtSetting.Default.MinCharLength)
+                {
+                    if (InputBarcodeString.Length > 0)
+                    {
+                        System.Windows.MessageBox.Show("Please enter a valid Lot No. with more than " + PrtSetting.Default.MinCharLength + " characters.");
                     }
 
+                    BarcodeImage = null;
+                    cancelValidate = true;
+                    InputBarcodeString = "";
                 }
-                else BarcodeLogo = null;
                 OnPropertyChanged(); }
         }
+
+        private string _OutBarcodeString;
+
+        public string OutBarcodeString
+        {
+            get { return _OutBarcodeString; }
+            set { _OutBarcodeString = value; OnPropertyChanged("OutBarcodeString"); }
+        }
+
 
         bool cancelValidate = false;
         private void handleTypingTimerTimeout(object sender, EventArgs e)
@@ -164,13 +193,7 @@ namespace BsLabPrint.Views
             //System.Windows.MessageBox.Show("Test");
             
             RunBarcode();
-            if(InputBarcodeString.Length <= PrtSetting.Default.MinCharLength)
-            {
-                System.Windows.MessageBox.Show("Please enter a valid Lot No. with more than " + PrtSetting.Default.MinCharLength + " characters.");
-                BarcodeImage = null;
-                cancelValidate = true;
-                InputBarcodeString = "";
-            }
+
   
             timer.Stop();
         }
@@ -186,7 +209,11 @@ namespace BsLabPrint.Views
 
         private void RunBarcode()
         {
+
+
             BarcodeImage = Barcode.GetRender(InputBarcodeGrid, PrtSetting.Default.PrinterDpi); //Grid to Image
+
+
 
         }
 
@@ -250,7 +277,7 @@ namespace BsLabPrint.Views
         }
 
 
-
+        public string TheOriginalString { get; set; } = "";
         private void PrintBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if(TextPRintBox.Text == "")
@@ -263,12 +290,25 @@ namespace BsLabPrint.Views
                 System.Windows.MessageBox.Show("Nothing to Print");
                 return;
             }
+
             try
             {
-                Printdocument.PrinterSettings.Copies = PrtSetting.Default.PrintQty; // Set the number of copies to print
-                Printdocument.Print();
+                Printdocument.PrinterSettings.Copies = 1;
+                if (PrtSetting.Default.PrintQty == 0)
+                {
+                    Printdocument.Print();
+                }
+                else if (PrtSetting.Default.PrintQty > 0)
+                {
+                    for (int i = 1; i <= PrtSetting.Default.PrintQty; i++)
+                    {
+                        InputBarcodeString = TheOriginalString + "-" + i.ToString();
+                        Printdocument.Print();
+                    }
+                    
+                }
 
-                //PrintPrevieww();
+                InputBarcodeString = TheOriginalString;
             }
             catch (Exception ex)
             {
@@ -299,7 +339,7 @@ namespace BsLabPrint.Views
         {
             try
             {
-                if (int.Parse(QtyBox.Text) <= 1)
+                if (int.Parse(QtyBox.Text) < 1)
                 {
                     System.Windows.MessageBox.Show("Please enter a valid quantity greater than 0.");
                     return;

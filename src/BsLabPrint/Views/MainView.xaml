@@ -63,7 +63,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                 <Image Source="{Binding BarcodeLogo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="1"/>
-                    <TextBlock Grid.Column="1" Text="{Binding InputBarcodeString}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="60" FontWeight="Bold"
+                <TextBlock Grid.Column="1" Text="{Binding OutBarcodeString, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" FontSize="60" FontWeight="Bold"
                                Foreground="Black" x:Name="BrTextBloxk"/>
                     <!--A25493026M-07-->
                 </Grid>
@@ -74,11 +74,11 @@
       
 
 
-            <!--<Border Grid.Row="0" BorderBrush="LightGray" BorderThickness="1" Margin="0,0,0,10">
+            <Border Grid.Row="0" BorderBrush="LightGray" BorderThickness="1" Margin="0,0,0,10">
                 <Grid Background="Transparent">
-                    <Image x:Name="PrintPreview" Stretch="None"/>
+                    <Image x:Name="PrintPreview" Stretch="None" Source="{Binding BarcodeImage, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
-            </Border>-->
+            </Border>
         </Grid>
         
     </Grid>

@@ -53,5 +53,8 @@
     <Setting Name="FontTypeFont" Type="System.String" Scope="User">
       <Value Profile="(Default)">Arial</Value>
     </Setting>
+    <Setting Name="QRsameWithText" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

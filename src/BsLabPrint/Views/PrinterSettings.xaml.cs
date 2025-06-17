@@ -51,6 +51,9 @@ namespace BsLabPrint.Views
             CodeTypeCMB.Items.Add("QR Code");
             FontWeightCMB.Items.Add("Normal");
             FontWeightCMB.Items.Add("Bold");
+
+            QrSameWithTextCMB.Items.Add("Yes");
+            QrSameWithTextCMB.Items.Add("No");
             FindFontAndInsertCMB();
         }
 
@@ -143,7 +146,30 @@ namespace BsLabPrint.Views
             }
         }
 
-            private void SaveConfig()
+        private void LoadQRSameTextCMB()
+        {
+            if (PrtSetting.Default.QRsameWithText == true)
+            {
+                QrSameWithTextCMB.SelectedIndex = 0; // Yes
+            }
+            else
+            {
+                QrSameWithTextCMB.SelectedIndex = 1; // No
+            }
+        }
+        private bool GetQRSameTextCMB()
+        {
+            if (QrSameWithTextCMB.SelectedIndex == 0)
+            {
+                return true; // Yes
+            }
+            else
+            {
+                return false; // No
+            }
+        }
+
+        private void SaveConfig()
         {
             try
             {
@@ -167,7 +193,7 @@ namespace BsLabPrint.Views
                 PrtSetting.Default.IsLandscape = GetlandscapeStateCmb();
 
                 PrtSetting.Default.UseQRCode = GetBarcodeTypeset();
-
+                PrtSetting.Default.QRsameWithText = GetQRSameTextCMB();
 
 
                 PrtSetting.Default.Save();
@@ -204,6 +230,7 @@ namespace BsLabPrint.Views
                 LoadLandscapeCMB();
                 LoadBarcodeTypeCMB();
                 LoadFontType();
+                LoadQRSameTextCMB();
 
                 ApplyConfig();
             }
