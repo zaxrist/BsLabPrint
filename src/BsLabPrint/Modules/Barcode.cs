@@ -14,7 +14,7 @@ namespace BsLabPrint.Modules
     static class Barcode
     {
 
-        public static BitmapImage BitmapToImageSource(string text)
+        public static BitmapImage BitmapToImageSource(string text) // convert string to DataMatrix image
         {
             if (text == "") { throw new ArgumentException("Text cannot be empty"); }
             Bitmap bb = new Bitmap(1000, 1000);
@@ -85,7 +85,7 @@ namespace BsLabPrint.Modules
             }
         }
 
-        public static BitmapImage GetQRCodeToImageSource(string QRText)
+        public static BitmapImage GetQRCodeToImageSource(string QRText) //convert string to QRCODE
         {
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(QRText, QRCodeGenerator.ECCLevel.Q);

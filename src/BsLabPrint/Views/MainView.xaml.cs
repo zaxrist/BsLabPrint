@@ -2,16 +2,19 @@
 using BsLabPrint.PrinterSetting;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Threading;
 
 namespace BsLabPrint.Views
@@ -29,6 +32,14 @@ namespace BsLabPrint.Views
             Printdocument = new PrintDocument();
             Printdocument.PrintPage += Printdocument_PrintPage;
             LoadPrintQty();
+        }
+
+        private string _PrinterNameText;
+
+        public string PrinterNameText
+        {
+            get { return _PrinterNameText; }
+            set { _PrinterNameText = value; OnPropertyChanged(); }
         }
 
         private void Printdocument_PrintPage(object sender, PrintPageEventArgs e)
@@ -52,12 +63,15 @@ namespace BsLabPrint.Views
                 }
 
                 Bitmap bb = Barcode.ImageSourceToBitmap(BarcodeImage);
+                
                 // Draw the scaled image
                 e.Graphics.DrawImage(bb,
                    PrtSetting.Default.SPosX + printableArea.X + (printableArea.Width - scaledWidth) / 2, // Center horizontally
                    PrtSetting.Default.SPosY + printableArea.Y + (printableArea.Height - scaledHeight) / 2, // Center vertically
                     scaledWidth - PrtSetting.Default.BarcodeWidth,
                     scaledHeight - PrtSetting.Default.BarcodeHeight);
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // Enable anti-aliasing for better quality
+
             }
             catch (Exception ex)
             {
@@ -78,12 +92,12 @@ namespace BsLabPrint.Views
         System.Windows.Threading.DispatcherTimer _typingTimer;
         private void TextPRintBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(cancelValidate) // If the input is invalid, do not process further
+            if (cancelValidate) // If the input is invalid, do not process further
             {
                 cancelValidate = false;
                 return;
             }
-            if (InputBarcodeString == "")
+            if (InputStringBox.Text == "")
             {
                 return;
             }
@@ -106,70 +120,63 @@ namespace BsLabPrint.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        // private ImageSource _BarcodeImage { get; set; }
+
+        //public ImageSource BarcodeImage { get; private set; }
         private ImageSource _BarcodeImage;
 
         public ImageSource BarcodeImage
         {
             get { return _BarcodeImage; }
-            set { _BarcodeImage = value; OnBarcodeChanged(); OnPropertyChanged("BarcodeImage"); }
+            set { _BarcodeImage = value; OnBarcodeChanged(); }
         }
-
 
         private void OnBarcodeChanged()
         {
             if (BarcodeImage != null)    
             BarcodeImageChanged.Invoke(BarcodeImage);
         }
+        private void RunBarcode(int printtimes=0)
+        {
+            if (InputBarcodeString == "" || InputBarcodeString == null) { BarcodeLogo = null; return; }
+            OutBarcodeString = InputBarcodeString;
+            if (PrtSetting.Default.UseQRCode)
+            {
+                BarcodeLogo = Barcode.GetQRCodeToImageSource(GetBarcodeWithText(printtimes));
+            }
+            else
+            {
+                BarcodeLogo = Barcode.BitmapToImageSource(GetBarcodeWithText(printtimes));
+            }
+            StartRenderImageTimer();
+        }
+        private string GetBarcodeWithText(int printtimes)
+        {
+            if(printtimes == 0)
+            {
+                return OutBarcodeString;
+            }
+            else
+            {
+                string oristring = OutBarcodeString;
+                OutBarcodeString = $"{OutBarcodeString}-{printtimes}";
+                if (!PrtSetting.Default.QRsameWithText)
+                {
+                    return oristring;
+                }
+                else
+                {
 
+                    return OutBarcodeString; // Append the print times to the barcode string
+                }
+            }
+        }
         private string _InputBarcodeString;
 
         public string InputBarcodeString
         {
             get { return _InputBarcodeString; }
             set { _InputBarcodeString = value;
-                TheOriginalString = InputBarcodeString;
-                if (InputBarcodeString != "")
-                {
-                    if (PrtSetting.Default.UseQRCode)
-                    {
-                        BarcodeLogo = Barcode.GetQRCodeToImageSource(InputBarcodeString);
-                        if (!PrtSetting.Default.QRsameWithText)
-                        {
-                            OutBarcodeString = InputBarcodeString;
-                        }
-                        else
-                        {
-                            OutBarcodeString = TheOriginalString;
-                        }
-                    }
-                    else
-                    {
-                        BarcodeLogo = Barcode.BitmapToImageSource(InputBarcodeString);
-                        if (!PrtSetting.Default.QRsameWithText)
-                        {
-                            OutBarcodeString = InputBarcodeString;
-                        }
-                        else
-                        {
-                            OutBarcodeString = TheOriginalString;
-                        }
-                    }
-                }
-                else
-                {
-                    BarcodeLogo = null;
-                }
-                if (InputBarcodeString.Length <= PrtSetting.Default.MinCharLength)
-                {
-                    if (InputBarcodeString.Length > 0)
-                    {
-                        System.Windows.MessageBox.Show("Please enter a valid Lot No. with more than " + PrtSetting.Default.MinCharLength + " characters.");
-                    }
-
-                    BarcodeImage = null;
-                    cancelValidate = true;
-                    InputBarcodeString = "";
-                }
                 OnPropertyChanged(); }
         }
 
@@ -178,7 +185,9 @@ namespace BsLabPrint.Views
         public string OutBarcodeString
         {
             get { return _OutBarcodeString; }
-            set { _OutBarcodeString = value; OnPropertyChanged("OutBarcodeString"); }
+            set { _OutBarcodeString = value;
+                OnPropertyChanged();
+            }
         }
 
 
@@ -190,11 +199,32 @@ namespace BsLabPrint.Views
             {
                 return;
             }
-            //System.Windows.MessageBox.Show("Test");
-            
             RunBarcode();
+            timer.Stop();
+        }
+        System.Windows.Threading.DispatcherTimer TimerDelayRendering;
+        private void StartRenderImageTimer()
+        {
+            if (TimerDelayRendering == null)
+            {
+                TimerDelayRendering = new DispatcherTimer();
+                TimerDelayRendering.Interval = TimeSpan.FromMilliseconds(1);
+                TimerDelayRendering.Tick += new EventHandler(this.HandleTimerDelay);
+            }
+            TimerDelayRendering.Stop(); // Resets the timer
+            TimerDelayRendering.Start();
+        }
 
-  
+        private void HandleTimerDelay(object sender, EventArgs e)
+        {
+            var timer = sender as DispatcherTimer; // WPF
+            if (timer == null)
+            {
+                return;
+            }
+           // InputBarcodeString = OutBarcodeString; 
+            BarcodeImage = Barcode.GetRender(InputBarcodeGrid, PrtSetting.Default.PrinterDpi); //Grid to Image
+            //OnBarcodeChanged();
             timer.Stop();
         }
 
@@ -204,17 +234,6 @@ namespace BsLabPrint.Views
         {
             get { return _BarcodeLogo; }
             set { _BarcodeLogo = value; OnPropertyChanged(); }
-        }
-
-
-        private void RunBarcode()
-        {
-
-
-            BarcodeImage = Barcode.GetRender(InputBarcodeGrid, PrtSetting.Default.PrinterDpi); //Grid to Image
-
-
-
         }
 
         private string verifyInput(string text)
@@ -239,7 +258,6 @@ namespace BsLabPrint.Views
                 enc.Frames.Add(BitmapFrame.Create(bitmapImage));
                 enc.Save(outStream);
                 System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
-
                 return new Bitmap(bitmap);
             }
         }
@@ -264,23 +282,20 @@ namespace BsLabPrint.Views
                         break;
                 }
                 BrTextBloxk.FontFamily = new System.Windows.Media.FontFamily(PrtSetting.Default.FontTypeFont);
-                //System.Windows.MessageBox.Show("setting Changed");
                 Printdocument.PrinterSettings = prtSetting;
-
+                PrinterNameText = "Printer: " + PrtSetting.Default.PrinterName;
                 RunBarcode();
             }
             catch (Exception EX)
             {
-                System.Windows.Forms.MessageBox.Show(EX.Message);
+                System.Windows.Forms.MessageBox.Show("prt Setting Changed" + EX.Message);
             }
-
         }
 
 
-        public string TheOriginalString { get; set; } = "";
         private void PrintBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if(TextPRintBox.Text == "")
+            if(InputBarcodeString == "")
             {
                 System.Windows.MessageBox.Show("Please enter a valid Lot No.");
                 return;
@@ -291,31 +306,31 @@ namespace BsLabPrint.Views
                 return;
             }
 
+            InputStringBox.IsEnabled = false;
             try
             {
                 Printdocument.PrinterSettings.Copies = 1;
                 if (PrtSetting.Default.PrintQty == 0)
                 {
+                    RunBarcode();
+                    Thread.Sleep(100); // Wait for the barcode to be generated
                     Printdocument.Print();
                 }
                 else if (PrtSetting.Default.PrintQty > 0)
                 {
-                    for (int i = 1; i <= PrtSetting.Default.PrintQty; i++)
-                    {
-                        InputBarcodeString = TheOriginalString + "-" + i.ToString();
-                        Printdocument.Print();
-                    }
-                    
+                        for (int i = 1; i <= PrtSetting.Default.PrintQty; i++)
+                        {
+                            RunBarcode(i);
+                            Thread.Sleep(100); // Wait for the barcode to be generated
+                            Printdocument.Print();
+                        }
                 }
-
-                InputBarcodeString = TheOriginalString;
             }
             catch (Exception ex)
             {
-
                 System.Windows.MessageBox.Show(ex.Message);
             }
-            
+            InputStringBox.IsEnabled = true;
         }
 
         private void AddPrintQty(object sender, System.Windows.RoutedEventArgs e)
