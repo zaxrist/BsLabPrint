@@ -29,22 +29,33 @@
                 <TextBox x:Name="InputStringBox" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0" 
                          FontSize="40" CommandManager.PreviewExecuted="textBox_PreviewExecuted" Text="{Binding InputBarcodeString, UpdateSourceTrigger=PropertyChanged}"
                          ContextMenu="{x:Null}" TextChanged="TextPRintBox_TextChanged"/>
+
                 <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="QtyBox" Text="10" VerticalContentAlignment="Center" FontSize="40" IsReadOnly="True" />
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Button FontFamily="Marlett" FontSize="20" Content="5" Grid.Row="0" Click="AddPrintQty"/>
-                        <Button FontFamily="Marlett" FontSize="20" Content="6" Grid.Row="1" Click="ReducePrintQty"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="1" Text="Qty=1: Manual Print &#10;Qty >= 2: Auto print with number " />
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="QtyBox" Text="10" VerticalContentAlignment="Center" FontSize="40" IsReadOnly="True" />
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Button FontFamily="Marlett" FontSize="20" Content="5" Grid.Row="0" Click="AddPrintQty"/>
+                            <Button FontFamily="Marlett" FontSize="20" Content="6" Grid.Row="1" Click="ReducePrintQty"/>
+                        </Grid>
+
                     </Grid>
-                    
                 </Grid>
+                
             </Grid>
 
             <Grid Grid.Row="3">

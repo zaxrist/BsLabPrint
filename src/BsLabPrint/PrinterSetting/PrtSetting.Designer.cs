@@ -238,5 +238,41 @@ namespace BsLabPrint.PrinterSetting {
                 this["QRsameWithText"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int MultiPrintDelay {
+            get {
+                return ((int)(this["MultiPrintDelay"]));
+            }
+            set {
+                this["MultiPrintDelay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int RenderTimer {
+            get {
+                return ((int)(this["RenderTimer"]));
+            }
+            set {
+                this["RenderTimer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int RunNoCharLength {
+            get {
+                return ((int)(this["RunNoCharLength"]));
+            }
+            set {
+                this["RunNoCharLength"] = value;
+            }
+        }
     }
 }

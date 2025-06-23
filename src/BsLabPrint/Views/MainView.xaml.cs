@@ -2,19 +2,18 @@
 using BsLabPrint.PrinterSetting;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.TextFormatting;
 using System.Windows.Threading;
 
 namespace BsLabPrint.Views
@@ -31,53 +30,22 @@ namespace BsLabPrint.Views
             InitializeComponent();
             Printdocument = new PrintDocument();
             Printdocument.PrintPage += Printdocument_PrintPage;
+            Printdocument.EndPrint += Printdocument_EndPrint;
             LoadPrintQty();
         }
 
-        private string _PrinterNameText;
+        public bool printComplete { get; private set; } = true;
+        private void Printdocument_EndPrint(object sender, PrintEventArgs e)
+        {
+            printComplete = true;
+           // System.Windows.Forms.MessageBox.Show("Print Completed");
+        }
 
+        private string _PrinterNameText;
         public string PrinterNameText
         {
             get { return _PrinterNameText; }
             set { _PrinterNameText = value; OnPropertyChanged(); }
-        }
-
-        private void Printdocument_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            try
-            {
-
-                // Get the printable area
-                Rectangle printableArea = e.PageBounds; // Use the entire page or MarginBounds for margins
-
-                // Calculate the scaled dimensions
-                double imageRatio = (double)BarcodeImage.Width / BarcodeImage.Height;
-                int scaledWidth = printableArea.Width;
-                int scaledHeight = (int)(printableArea.Width / imageRatio);
-
-                // If the scaled height exceeds the printable area's height, adjust width
-                if (scaledHeight > printableArea.Height)
-                {
-                    scaledHeight = printableArea.Height;
-                    scaledWidth = (int)(printableArea.Height * imageRatio);
-                }
-
-                Bitmap bb = Barcode.ImageSourceToBitmap(BarcodeImage);
-                
-                // Draw the scaled image
-                e.Graphics.DrawImage(bb,
-                   PrtSetting.Default.SPosX + printableArea.X + (printableArea.Width - scaledWidth) / 2, // Center horizontally
-                   PrtSetting.Default.SPosY + printableArea.Y + (printableArea.Height - scaledHeight) / 2, // Center vertically
-                    scaledWidth - PrtSetting.Default.BarcodeWidth,
-                    scaledHeight - PrtSetting.Default.BarcodeHeight);
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // Enable anti-aliasing for better quality
-
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message);
-            }
-
         }
 
         private void textBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -113,7 +81,6 @@ namespace BsLabPrint.Views
             _typingTimer.Start();
         }
         private ImageSource _BarcodeInsert;
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName="")
         {
@@ -124,7 +91,6 @@ namespace BsLabPrint.Views
 
         //public ImageSource BarcodeImage { get; private set; }
         private ImageSource _BarcodeImage;
-
         public ImageSource BarcodeImage
         {
             get { return _BarcodeImage; }
@@ -152,14 +118,17 @@ namespace BsLabPrint.Views
         }
         private string GetBarcodeWithText(int printtimes)
         {
-            if(printtimes == 0)
+            OutBarcodeString = OutBarcodeString.ToUpper();
+            OutBarcodeString = OutBarcodeString.Trim();
+
+            if (printtimes == 0)
             {
                 return OutBarcodeString;
             }
             else
             {
                 string oristring = OutBarcodeString;
-                OutBarcodeString = $"{OutBarcodeString}-{printtimes}";
+                OutBarcodeString = $"{OutBarcodeString}-{Barcode.RunningNoCharLength(printtimes,PrtSetting.Default.RunNoCharLength)}";
                 if (!PrtSetting.Default.QRsameWithText)
                 {
                     return oristring;
@@ -208,7 +177,7 @@ namespace BsLabPrint.Views
             if (TimerDelayRendering == null)
             {
                 TimerDelayRendering = new DispatcherTimer();
-                TimerDelayRendering.Interval = TimeSpan.FromMilliseconds(1);
+                TimerDelayRendering.Interval = TimeSpan.FromMilliseconds(PrtSetting.Default.RenderTimer);
                 TimerDelayRendering.Tick += new EventHandler(this.HandleTimerDelay);
             }
             TimerDelayRendering.Stop(); // Resets the timer
@@ -251,7 +220,6 @@ namespace BsLabPrint.Views
         private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
         {
             // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
-
             using (MemoryStream outStream = new MemoryStream())
             {
                 BitmapEncoder enc = new BmpBitmapEncoder();
@@ -292,8 +260,7 @@ namespace BsLabPrint.Views
             }
         }
 
-
-        private void PrintBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void PrintBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if(InputBarcodeString == "")
             {
@@ -310,20 +277,30 @@ namespace BsLabPrint.Views
             try
             {
                 Printdocument.PrinterSettings.Copies = 1;
-                if (PrtSetting.Default.PrintQty == 0)
+                if (PrtSetting.Default.PrintQty == 1)
                 {
                     RunBarcode();
                     Thread.Sleep(100); // Wait for the barcode to be generated
                     Printdocument.Print();
                 }
-                else if (PrtSetting.Default.PrintQty > 0)
+                else if (PrtSetting.Default.PrintQty > 1)
                 {
                         for (int i = 1; i <= PrtSetting.Default.PrintQty; i++)
                         {
                             RunBarcode(i);
-                            Thread.Sleep(100); // Wait for the barcode to be generated
-                            Printdocument.Print();
+                        //need to async await for the barcode to be generated
+
+                        await Task.Delay(PrtSetting.Default.MultiPrintDelay); // Wait for the barcode to be generated
+                        printComplete = false; // Reset the flag for the next print
+                        Printdocument.Print();
+                        
+                        
+                        while (!printComplete)
+                        {
+                            Thread.Sleep(100); // Wait for the print to complete
                         }
+                        
+                    }
                 }
             }
             catch (Exception ex)
@@ -331,6 +308,46 @@ namespace BsLabPrint.Views
                 System.Windows.MessageBox.Show(ex.Message);
             }
             InputStringBox.IsEnabled = true;
+        }
+
+        private void Printdocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            try
+            {
+               // Thread.Sleep(2000);
+
+                // Get the printable area
+                Rectangle printableArea = e.PageBounds; // Use the entire page or MarginBounds for margins
+
+                // Calculate the scaled dimensions
+                double imageRatio = (double)BarcodeImage.Width / BarcodeImage.Height;
+                int scaledWidth = printableArea.Width;
+                int scaledHeight = (int)(printableArea.Width / imageRatio);
+
+                // If the scaled height exceeds the printable area's height, adjust width
+                if (scaledHeight > printableArea.Height)
+                {
+                    scaledHeight = printableArea.Height;
+                    scaledWidth = (int)(printableArea.Height * imageRatio);
+                }
+
+                Bitmap bb = Barcode.ImageSourceToBitmap(BarcodeImage);
+
+                // Draw the scaled image
+                e.Graphics.DrawImage(bb,
+                   PrtSetting.Default.SPosX + printableArea.X + (printableArea.Width - scaledWidth) / 2, // Center horizontally
+                   PrtSetting.Default.SPosY + printableArea.Y + (printableArea.Height - scaledHeight) / 2, // Center vertically
+                    scaledWidth - PrtSetting.Default.BarcodeWidth,
+                    scaledHeight - PrtSetting.Default.BarcodeHeight);
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // Enable anti-aliasing for better quality
+
+                e.HasMorePages = false;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void AddPrintQty(object sender, System.Windows.RoutedEventArgs e)
@@ -354,7 +371,7 @@ namespace BsLabPrint.Views
         {
             try
             {
-                if (int.Parse(QtyBox.Text) < 1)
+                if (int.Parse(QtyBox.Text) <= 1)
                 {
                     System.Windows.MessageBox.Show("Please enter a valid quantity greater than 0.");
                     return;
@@ -385,7 +402,6 @@ namespace BsLabPrint.Views
                     qty = (short)(qty + 1);
                 }
                 QtyBox.Text = qty.ToString();
-
                 PrtSetting.Default.PrintQty = qty;
                 PrtSetting.Default.Save(); // Save the updated quantity to settings
             }

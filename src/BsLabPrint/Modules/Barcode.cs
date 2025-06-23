@@ -98,7 +98,7 @@ namespace BsLabPrint.Modules
             Bitmap bmp;
             using (var ms = new MemoryStream(qrCodeAsBitmapByteArr))
             {
-                 bmp = new Bitmap(ms);
+                bmp = new Bitmap(ms);
 
                 using (MemoryStream memory = new MemoryStream())
                 {
@@ -112,6 +112,18 @@ namespace BsLabPrint.Modules
                     return bitmapimage;
                 }
             }
+        }
+
+        public static string RunningNoCharLength(int RunNo, int CharLength) //convert running number to string with fixed length
+        {
+            string rtn = RunNo.ToString();
+
+            for (int i = RunNo.ToString().Length; i < CharLength; i++)
+            {
+                rtn = "0" + rtn;
+            }
+
+            return rtn;
         }
     }
 }

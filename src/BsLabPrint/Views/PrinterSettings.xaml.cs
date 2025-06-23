@@ -1,4 +1,5 @@
-﻿using BsLabPrint.PrinterSetting;
+﻿using BsLabPrint.Modules;
+using BsLabPrint.PrinterSetting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -179,6 +180,8 @@ namespace BsLabPrint.Views
                 PrtSetting.Default.LabelHeight = int.Parse(LabelHeighBox.Text);
                 PrtSetting.Default.SPosY = int.Parse(StartYlbl.Text);
                 PrtSetting.Default.SPosX = int.Parse(StartXlbl.Text);
+                PrtSetting.Default.MultiPrintDelay = int.Parse(MultiPrintDelayBox.Text);
+                PrtSetting.Default.RenderTimer =  int.Parse(RenderTimerBox.Text);
 
                 PrtSetting.Default.BarcodeWidth = int.Parse(BarcodeWidthBox.Text);
                 PrtSetting.Default.BarcodeHeight = int.Parse(BarcodeHeightBox.Text);
@@ -189,6 +192,8 @@ namespace BsLabPrint.Views
                 PrtSetting.Default.MinCharLength = int.Parse(MinCharLengthBox.Text);
                 PrtSetting.Default.FontType = FontWeightCMB.SelectedItem.ToString();
                 PrtSetting.Default.FontTypeFont = FontTypeCMB.SelectedItem.ToString();
+
+                PrtSetting.Default.RunNoCharLength = int.Parse(RunnNoCharlengthBox.Text);
 
                 PrtSetting.Default.IsLandscape = GetlandscapeStateCmb();
 
@@ -217,6 +222,8 @@ namespace BsLabPrint.Views
                 LabelHeighBox.Text = PrtSetting.Default.LabelHeight.ToString();
                 StartYlbl.Text = PrtSetting.Default.SPosY.ToString();
                 StartXlbl.Text = PrtSetting.Default.SPosX.ToString();
+                MultiPrintDelayBox.Text = PrtSetting.Default.MultiPrintDelay.ToString();
+                RenderTimerBox.Text = PrtSetting.Default.RenderTimer.ToString();
 
                 BarcodeWidthBox.Text = PrtSetting.Default.BarcodeWidth.ToString();
                 BarcodeHeightBox.Text = PrtSetting.Default.BarcodeHeight.ToString();
@@ -226,6 +233,8 @@ namespace BsLabPrint.Views
                 BarcodeGapBox.Text = PrtSetting.Default.BarcodeTextGap.ToString();
                 MinCharLengthBox.Text = PrtSetting.Default.MinCharLength.ToString();
                 FontTypeCMB.Text = PrtSetting.Default.FontTypeFont;
+
+                RunnNoCharlengthBox.Text = PrtSetting.Default.RunNoCharLength.ToString();
 
                 LoadLandscapeCMB();
                 LoadBarcodeTypeCMB();
@@ -303,7 +312,7 @@ namespace BsLabPrint.Views
         public event PrintPreviewEventHandler printpreviewClicked;
         private void PrintPreviewBtn_Click(object sender, RoutedEventArgs e)
         {
-            printpreviewClicked.Invoke();
+             printpreviewClicked.Invoke();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

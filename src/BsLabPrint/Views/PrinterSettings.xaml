@@ -40,6 +40,8 @@
                         <TextBlock Text="Label Width (mm): " Margin="0,3,0,0"/>
                         <TextBlock Text="Label Height (mm): " Margin="0,3,0,0"/>
                         <TextBlock Text="Landscape: " Margin="0,3,0,0"/>
+                        <TextBlock Text="MultiprintDelay,ms: " Margin="0,3,0,0"/>
+                        <TextBlock Text="RenderTimer,ms: " Margin="0,3,0,0"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <ComboBox x:Name="PrinterListCmb"/>
@@ -47,10 +49,12 @@
                         <TextBox x:Name="LabelWidthBox"/>
                         <TextBox x:Name="LabelHeighBox"/>
                         <ComboBox x:Name="LandscapeCmb"/>
+                        <TextBox x:Name="MultiPrintDelayBox"/>
+                        <TextBox x:Name="RenderTimerBox"/>
                     </StackPanel>
                 </Grid>
             </GroupBox>
-
+            
             <GroupBox Header="Label Settings" Grid.Column="1" Margin="5">
                 <TabControl>
                     <TabItem Header="Label">
@@ -80,7 +84,7 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled">
                             <Grid Margin="5" Width="300" HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="130"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <StackPanel>
@@ -92,6 +96,7 @@
                                     <TextBlock Text="Font Weight: " Margin="0,3,0,0"/>
                                     <TextBlock Text="Font Type: " Margin="0,3,0,0"/>
                                     <TextBlock Text="QR-Text Same: " Margin="0,3,0,0"/>
+                                    <TextBlock Text="RunNo Char Lenght" Margin="0,3,0,0"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1">
                                     <TextBox x:Name="BarcodeSizeBox"/>
@@ -102,6 +107,7 @@
                                     <ComboBox x:Name="FontWeightCMB"/>
                                     <ComboBox x:Name="FontTypeCMB"/>
                                     <ComboBox x:Name="QrSameWithTextCMB"/>
+                                    <TextBox x:Name="RunnNoCharlengthBox"/>
                                 </StackPanel>
                             </Grid>
                         </ScrollViewer>
